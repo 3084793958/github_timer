@@ -3,3 +3,5 @@ GPL3.0
 C++
 QT5
 deepin20.8
+text:
+![text](text.png)
