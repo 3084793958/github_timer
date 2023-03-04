@@ -225,13 +225,14 @@ MyWidget::MyWidget(QWidget *parent)
     {
         on_top->setIconVisibleInMenu(true);
         on_under->setIconVisibleInMenu(false);
-        setWindowFlags(windowFlags()&~Qt::WindowStaysOnBottomHint);
         setAttribute(Qt::WA_X11NetWmWindowTypeDock, true);
+        setWindowFlags(windowFlags()&~Qt::WindowStaysOnBottomHint);
     }
     else
     {
         on_top->setIconVisibleInMenu(false);
         on_under->setIconVisibleInMenu(true);
+        setAttribute(Qt::WA_X11NetWmWindowTypeDock, true);
         setWindowFlags(windowFlags()|Qt::WindowStaysOnBottomHint);
     }
 }
@@ -274,8 +275,8 @@ void MyWidget::contextMenuEvent(QContextMenuEvent *event)
         the_show_way = 1;
         on_top->setIconVisibleInMenu(false);
         on_under->setIconVisibleInMenu(true);
-        setWindowFlags(windowFlags()|Qt::WindowStaysOnBottomHint);
         setAttribute(Qt::WA_X11NetWmWindowTypeDock, false);
+        setWindowFlags(windowFlags()|Qt::WindowStaysOnBottomHint);
         show();
     }
 }
@@ -302,10 +303,10 @@ void MyWidget::mouseReleaseEvent(QMouseEvent *event)
 }
 void MyWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if ((Qt::LeftButton)and(left_mouse))
+    if ((Qt::LeftButton)and(left_mouse)and(lock_way==0))
     {
         setCursor(QCursor(Qt::OpenHandCursor));
         move(event->globalPos().x()-mouse_pos_x,event->globalPos().y()-mouse_pos_y);
+        event->accept();
     }
-    event->accept();
 }
